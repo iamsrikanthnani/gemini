@@ -17,7 +17,7 @@ import { useSpeech } from "./hooks/useSpeech";
 const App = () => {
   // Destructure values from the custom hook
   const { isLoading, videoRef, response, listening } = useApp();
-  const { speak } = useSpeech();
+
   return (
     <div className="flex flex-col sm:flex-row h-screen bg-black p-8">
       {/* Camera layout */}
@@ -42,17 +42,7 @@ const App = () => {
       <div className="lg:w-1/3 lg:h-full md:w-1/3 md:h-full sm:w-full h-2/6">
         <div className="bg-black p-4 ml-6 h-full w-full justify-center flex items-center">
           {/* Display Gemini response or loading/listening message */}
-          <Text
-            onClick={() =>
-              speak(
-                "Hello, world!",
-                "Microsoft David Desktop - English (United States)"
-              )
-            }
-            className="text-white text-center"
-            size={"6"}
-            weight={"medium"}
-          >
+          <Text className="text-white text-center" size={"6"} weight={"medium"}>
             {response
               ? response
               : listening
