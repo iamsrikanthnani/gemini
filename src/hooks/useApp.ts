@@ -11,14 +11,16 @@
  * @returns {Object} - An object with the following properties:
  * @property {Object} videoRef - Reference to the video element for camera streaming.
  * @property {boolean} isLoading - Flag indicating whether the camera is currently loading.
- * @property {boolean} isRecording - Flag indicating whether speech recognition is active.
+ * @property {boolean} listening - Flag indicating whether speech recognition is actively listening.
+ * @property {string} response - The response received from the Gemini API.
  * @property {Array} base64Frames - Array containing base64-encoded video frames.
  *
  * Usage:
  * const {
  *   videoRef,
  *   isLoading,
- *   isRecording,
+ *   listening,
+ *   response,
  *   base64Frames,
  * } = useApp();
  */
@@ -28,22 +30,23 @@ import "regenerator-runtime/runtime";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import { makeGeminiRequest } from "./useGemini";
+import { useSpeech } from "./useSpeech";
 
 const useApp = () => {
   // Ref for the video element
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const { speak } = useSpeech();
 
   // State variables for loading state, recording state, and storing base64 frames
-  const [isLoading, setIsLoading] = useState(true);
-  const [isRecording, setIsRecording] = useState(false);
-  const [base64Frames, setBase64Frames] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [response, setResponse] = useState("");
+  const [base64Frames, setBase64Frames] = useState<
+    { mimeType: string; data: string }[]
+  >([]);
 
   // Speech recognition hook for managing transcript and listening state
   const { transcript, resetTranscript, listening } = useSpeechRecognition();
-
-  // Logging listening state and transcript for debugging
-  console.log(listening, "listening");
-  console.log(transcript, "transcript");
 
   // Variable to store the interval for capturing frames
   let frameInterval: NodeJS.Timeout;
@@ -58,7 +61,6 @@ const useApp = () => {
   // Function to stop speech recognition
   const stopHandle = () => {
     SpeechRecognition.stopListening();
-    // annyang.start(); // (Commented out, possibly for future use)
   };
 
   // Function to reset speech recognition transcript
@@ -71,9 +73,8 @@ const useApp = () => {
   const runApp = () => {
     annyang.abort();
     handleReset();
-    console.log("got hey gemini!");
     setIsLoading(true);
-    setIsRecording(true);
+    setResponse("");
     setBase64Frames([]);
     handleListing();
     frameInterval = setInterval(() => {
@@ -94,7 +95,9 @@ const useApp = () => {
           );
           // Convert the frame to base64 format and add it to the frames array
           const base64Frame = canvas.toDataURL("image/jpeg");
-          setBase64Frames((prevFrames) => [...prevFrames, base64Frame]);
+          let [mimeType, data] = base64Frame.split(";base64,");
+          mimeType = mimeType.split(":")[1];
+          setBase64Frames((prevFrames) => [...prevFrames, { mimeType, data }]);
         }
       }
     }, 1000);
@@ -105,10 +108,15 @@ const useApp = () => {
     if (!listening) {
       // Start annyang for additional voice commands
       annyang.start();
-      setIsRecording(false);
-      setIsLoading(false);
       stopHandle();
       clearInterval(frameInterval);
+      makeGeminiRequest(
+        transcript,
+        base64Frames,
+        setResponse,
+        speak,
+        setIsLoading
+      );
       SpeechRecognition.stopListening();
     }
   }, [listening]);
@@ -128,11 +136,8 @@ const useApp = () => {
           // Set the camera stream as the source for the video element
           videoRef.current.srcObject = stream;
         }
-
-        setIsLoading(false);
       } catch (error) {
         console.error("Error accessing camera:", error);
-        setIsLoading(false);
       }
     };
 
@@ -154,7 +159,6 @@ const useApp = () => {
     return () => {
       // Abort annyang, stop recording, and clear intervals
       annyang.abort();
-      setIsRecording(false);
       stopHandle();
       clearInterval(frameInterval);
     };
@@ -163,8 +167,9 @@ const useApp = () => {
   // Return the state variables and video reference for external use
   return {
     videoRef,
-    isLoading: isLoading || listening,
-    isRecording,
+    isLoading,
+    listening,
+    response,
     base64Frames,
   };
 };
