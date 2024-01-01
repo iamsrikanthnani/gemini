@@ -1,30 +1,51 @@
-# React + TypeScript + Vite
+# 🌌 Gemini: Exploring Multimodal AI Capabilities
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Gemini Demo](https://github.com/iamsrikanthnani/gemini/blob/master/screenShot.png)](<[youtube_video_link](https://www.youtube.com/watch?app=desktop&v=KWund_YgYFY)>)
 
-Currently, two official plugins are available:
+Explore the remarkable capabilities of Gemini, an open-source application powered by the Google Gemini Vision API. Seamlessly reasoning across text, images, video, audio, and code, Gemini is your gateway to the future of AI.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Quick Start
 
-## Expanding the ESLint configuration
+**Demo:** [Gemini Demo](https://gemini.srikanthnani.com/)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+#### step: 1 Clone the repository
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+git clone https://github.com/iamsrikanthnani/gemini.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+#### step: 2
+
+```bash
+npm install
+```
+
+#### step:3 🔑 Setup Gemini API Key: Rename `.env.example` to `.env` and paste your Gemini API key in `VITE_GEMINI_KEY`.
+
+#### step:4 Run locally
+
+```bash
+npm run dev
+```
+
+Visit [localhost:3000](http://localhost:3000/) to experience Gemini on your machine.
+
+## 🌟 Give it a Star
+
+Enjoying Gemini? Show your support by giving it a star on GitHub! ⭐
+
+## 🤖 How it Works
+
+Simply say "Hey Gemini," show an object to the camera, and witness the magic of multimodal AI.
+
+## 🌐 Learn More
+
+Visit the [Gemini Homepage](https://gemini.srikanthnani.com/) for in-depth information about Gemini's capabilities.
+
+## 🙌 Contribute
+
+Your contributions make Gemini even more powerful.
+
+Unlock the potential of AI with Gemini—your gateway to the future.
+
+## Happy Coding! 🚀
