@@ -3,6 +3,26 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "description": "Gemini is an open-source application powered by the Google Gemini Vision API. It enables users to identify and learn about objects captured by their camera through a simple and interactive experience. Just say 'Hey Gemini' and show an object to the camera and say!",
+  "keywords": [
+    "Gemini",
+    "Google Gemini",
+    "Gemini Vision",
+    "Image Recognition",
+    "Multimodal AI",
+    "Open Source",
+    "Computer Vision"
+  ],
+  "author": "Srikanth Nani",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamsrikanthnani/gemini.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iamsrikanthnani/gemini/issues"
+  },
+  "homepage": "https://gemini.srikanthnani.com/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

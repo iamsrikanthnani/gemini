@@ -146,7 +146,13 @@ const useApp = () => {
 
     // Speech recognition commands
     const commands: Commands = {
-      Gemini: () => {
+      "Hey Gemini": () => {
+        runApp();
+      },
+      Hey: () => {
+        runApp();
+      },
+      Hello: () => {
         runApp();
       },
     };
