@@ -25,14 +25,13 @@ body {
   position: relative;
   z-index: 0;
   overflow: hidden;
-  padding: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: sans-serif;
   font-weight: bold;
   border-radius: 30px;
-
+  overflow: hidden;
   &::before {
     content: "";
     position: absolute;
@@ -45,11 +44,12 @@ body {
     background-repeat: no-repeat;
     background-size: 50% 50%, 50% 50%;
     background-position: 0 0, 100% 0, 100% 100%, 0 100%;
-    background-image: linear-gradient(#000, #d6dbe2, #000),
-      linear-gradient(#000, #6298cd, #000), linear-gradient(#000, #6298cd, #000),
-      linear-gradient(#000, #d6dbe2, #000), linear-gradient(#000, #6298cd, #000);
+    background-image: linear-gradient(#d6dbe2, #d6dbe2),
+      linear-gradient(#6298cd, #6298cd), linear-gradient(#6298cd, #6298cd),
+      linear-gradient(#d6dbe2, #d6dbe2), linear-gradient(#6298cd, #6298cd);
     animation: rotate 4s linear infinite;
     border-radius: 30px;
+    overflow: hidden;
   }
 
   &::after {
@@ -58,9 +58,17 @@ body {
     z-index: -1;
     left: 3px;
     top: 3px;
-    width: calc(100% - 6px);
-    height: calc(100% - 6px);
+    right: 3px;
+    bottom: 3px;
     background: #000;
     border-radius: 30px;
+    overflow: hidden;
   }
+}
+
+.video-container {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  border-radius: 30px;
 }
