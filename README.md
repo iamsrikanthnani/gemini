@@ -1,8 +1,9 @@
-# 🌌 Gemini: Exploring Multimodal AI Capabilities
+# Google Gemini <sub><sup>with gemini-pro-vision modal</sup></sub>
+### say "Hey Gemini"
 
-[![Gemini Demo](https://github.com/iamsrikanthnani/gemini/blob/master/screenShot.png)](<[youtube_video_link](https://www.youtube.com/watch?app=desktop&v=KWund_YgYFY)>)
+[![Gemini Demo](https://raw.githubusercontent.com/iamsrikanthnani/gemini/master/img/Screenshot.png)](https://www.youtube.com/watch?app=desktop&v=KWund_YgYFY)
 
-Explore the remarkable capabilities of Gemini, an open-source application powered by the Google Gemini Vision API. Seamlessly reasoning across text, images, video, audio, and code, Gemini is your gateway to the future of AI.
+Explore the remarkable capabilities of Gemini, an open-source application powered by the Google Gemini Vision API(Gemini-pro-vision modal). Seamlessly reasoning across text, and images. Gemini is your gateway to the future of AI.
 
 ## 🚀 Quick Start
 
