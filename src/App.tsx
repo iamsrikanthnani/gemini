@@ -12,7 +12,6 @@
  */
 import { Text } from "@radix-ui/themes";
 import useApp from "@/hooks/useApp";
-import { useSpeech } from "./hooks/useSpeech";
 
 const App = () => {
   // Destructure values from the custom hook
