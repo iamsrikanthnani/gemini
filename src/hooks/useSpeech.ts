@@ -44,6 +44,13 @@ export const useSpeech = () => {
    * @param {string} voiceName - The name of the voice to be used.
    * @returns {Promise<void>} - A promise that resolves when speech synthesis is complete.
    */
+  /**
+   * Function to initiate speech synthesis for the given content.
+   *
+   * @param {string} content - The content to be spoken.
+   * @param {string} voiceName - The name of the voice to be used.
+   * @returns {Promise<void>} - A promise that resolves when speech synthesis is complete.
+   */
   const speak = (content: string, voiceName?: string) => {
     // Check if voices are available
     if (voices.length === 0) {
@@ -54,11 +61,13 @@ export const useSpeech = () => {
     const utterance = new SpeechSynthesisUtterance(content);
 
     // Choose the specified voice by name if available, otherwise use the first available voice
-    utterance.voice =
-      voiceName && voices.find((voice) => voice.name === voiceName)
-        ? voices.find((voice) => voice.name === voiceName)
+    const selectedVoice =
+      voiceName && voices.find((voice) => voice.name === voiceName && voice) // Ensure voice is not undefined
+        ? voices.find((voice) => voice.name === voiceName)!
         : voices.find((voice) => voice.name.includes("Google US English")) ||
-          voices[0];
+          null;
+
+    utterance.voice = selectedVoice;
 
     setIsSpeaking(true);
 
