@@ -32,13 +32,12 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { makeGeminiRequest } from "./useGemini";
 import { useSpeech } from "./useSpeech";
-import useResponsive from "./useResponsive";
 
 const useApp = () => {
   // Ref for the video element
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const { speak, isSpeaking } = useSpeech();
-  const { isMobile } = useResponsive();
+
   const [isFrontCamera, setIsFrontCamera] = useState(false);
 
   // State variables for loading state, recording state, and storing base64 frames
