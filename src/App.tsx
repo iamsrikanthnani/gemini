@@ -10,7 +10,7 @@
  *
  * @returns {JSX.Element} - The JSX representation of the App component.
  */
-import { Flex, Link, Text } from "@radix-ui/themes";
+import { Flex, Link, Switch, Text } from "@radix-ui/themes";
 import useApp from "@/hooks/useApp";
 import {
   EnvelopeOpenIcon,
@@ -21,8 +21,9 @@ import {
 
 const App = () => {
   // Destructure values from the custom hook
-  const { isLoading, videoRef, response, listening } = useApp();
-
+  const { isLoading, videoRef, response, listening, autoMode, setAutoMode } =
+    useApp();
+  console.log(autoMode, "autoMode");
   return (
     <div className="flex flex-col sm:flex-row h-screen bg-black p-8">
       <Flex
@@ -106,18 +107,35 @@ const App = () => {
                 ? "Listening..."
                 : isLoading
                 ? "Getting text..."
+                : autoMode
+                ? "Auto mode enabled"
                 : `say "Hey Gemini"`}
             </Text>
           </Flex>
           {/* FOOTER */}
-          <div className="absolute bottom-0 py-4 text-center">
-            <Text
-              className="text-white text-center"
-              size={"4"}
-              weight={"medium"}
-            >
-              PS: Hey Gemini
-            </Text>
+          <Flex
+            direction={"column"}
+            className="absolute bottom-0 py-4 text-center"
+          >
+            <Flex gap="2">
+              <Switch
+                checked={autoMode}
+                onCheckedChange={() => setAutoMode(!autoMode)}
+              />
+              <Text className="text-white text-center">Auto mode</Text>
+            </Flex>
+
+            {!autoMode && (
+              <Text
+                mt={"3"}
+                className="text-white text-center"
+                size={"4"}
+                weight={"medium"}
+              >
+                PS: Hey Gemini
+              </Text>
+            )}
+
             {/* Gemini logo or related image */}
             <img
               className="w-28 ml-3"
@@ -125,7 +143,7 @@ const App = () => {
                 "https://ppc.land/content/images/size/w1200/2023/12/Google-Gemini-AI-2.webp"
               }
             />
-          </div>
+          </Flex>
         </div>
       </div>
     </div>

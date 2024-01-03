@@ -36,10 +36,11 @@ import { useSpeech } from "./useSpeech";
 const useApp = () => {
   // Ref for the video element
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const { speak } = useSpeech();
+  const { speak, isSpeaking } = useSpeech();
 
   // State variables for loading state, recording state, and storing base64 frames
   const [isLoading, setIsLoading] = useState(false);
+  const [autoMode, setAutoMode] = useState(false);
   const [response, setResponse] = useState("");
   const [base64Frames, setBase64Frames] = useState<
     { mimeType: string; data: string }[]
@@ -121,6 +122,12 @@ const useApp = () => {
     }
   }, [listening]);
 
+  useEffect(() => {
+    if (!isSpeaking && autoMode) {
+      runApp();
+    }
+  }, [isSpeaking]);
+
   // Effect to initialize the camera and set up speech recognition commands
   useEffect(() => {
     // Function to initialize the camera
@@ -157,9 +164,13 @@ const useApp = () => {
       },
     };
 
-    // Add commands to annyang and start it
-    annyang.addCommands(commands);
-    annyang.start();
+    if (autoMode) {
+      runApp();
+    } else {
+      // Add commands to annyang and start it
+      annyang.addCommands(commands);
+      annyang.start();
+    }
 
     // Cleanup function when the component unmounts
     return () => {
@@ -168,7 +179,7 @@ const useApp = () => {
       stopHandle();
       clearInterval(frameInterval);
     };
-  }, []);
+  }, [autoMode]);
 
   // Return the state variables and video reference for external use
   return {
@@ -177,6 +188,8 @@ const useApp = () => {
     listening,
     response,
     base64Frames,
+    autoMode,
+    setAutoMode,
   };
 };
 
