@@ -63,6 +63,9 @@ export async function makeGeminiRequest(
     setIsLoading(false);
     return response;
   } catch (error) {
+    setResponse("Something went wrong");
+    speak("Something went wrong");
+    setIsLoading(false);
     console.error(error);
     // Propagate the error
     throw error;

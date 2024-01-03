@@ -38,6 +38,8 @@ const useApp = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const { speak, isSpeaking } = useSpeech();
 
+  const [isFrontCamera, setIsFrontCamera] = useState(false);
+
   // State variables for loading state, recording state, and storing base64 frames
   const [isLoading, setIsLoading] = useState(false);
   const [autoMode, setAutoMode] = useState(false);
@@ -190,6 +192,8 @@ const useApp = () => {
     base64Frames,
     autoMode,
     setAutoMode,
+    setIsFrontCamera,
+    isFrontCamera,
   };
 };
 
