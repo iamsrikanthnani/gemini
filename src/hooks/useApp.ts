@@ -138,9 +138,7 @@ const useApp = () => {
       try {
         // Access the user's camera
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: isMobile
-            ? { facingMode: isFrontCamera ? "user" : "environment" }
-            : { facingMode: "environment" },
+          video: true,
           audio: false,
         });
 
