@@ -15,11 +15,20 @@ import { Flex, Switch, Text } from "@radix-ui/themes";
 import useApp from "@/hooks/useApp";
 import useResponsive from "@/hooks/useResponsive";
 import Links from "./components/Links";
+import { SymbolIcon } from "@radix-ui/react-icons";
 
 const App = () => {
   // Destructure values from the custom hook
-  const { isLoading, videoRef, response, listening, autoMode, setAutoMode } =
-    useApp();
+  const {
+    isLoading,
+    videoRef,
+    response,
+    listening,
+    autoMode,
+    setAutoMode,
+    setIsFrontCamera,
+    isFrontCamera,
+  } = useApp();
   // mobile responsive
   const { isMobile } = useResponsive();
 
@@ -44,7 +53,20 @@ const App = () => {
           />
         </div>
       </div>
-
+      {isMobile && (
+        <Flex
+          justify={"end"}
+          align={"end"}
+          style={{ zIndex: 999, width: "100%" }}
+        >
+          <SymbolIcon
+            onClick={() => setIsFrontCamera(!isFrontCamera)}
+            width={24}
+            height={24}
+            color="white"
+          />
+        </Flex>
+      )}
       {/* Gemini response layout */}
       <div className="lg:w-1/3 lg:h-full md:w-1/3 md:h-full sm:w-full h-2/6">
         <div

@@ -14,7 +14,7 @@ const Links = () => {
       position={"absolute"}
       gap={"2"}
       align={"center"}
-      className={`z-50 w-full ${isMobile ? "top-0 left-[-4px]" : "right-16"}`}
+      className={`z-50 ${isMobile ? " w-full top-0 left-[-4px]" : "right-16"}`}
       style={isMobile ? { placeContent: "center" } : {}}
     >
       <Link

@@ -32,11 +32,14 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { makeGeminiRequest } from "./useGemini";
 import { useSpeech } from "./useSpeech";
+import useResponsive from "./useResponsive";
 
 const useApp = () => {
   // Ref for the video element
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const { speak, isSpeaking } = useSpeech();
+  const { isMobile } = useResponsive();
+  const [isFrontCamera, setIsFrontCamera] = useState(false);
 
   // State variables for loading state, recording state, and storing base64 frames
   const [isLoading, setIsLoading] = useState(false);
@@ -135,7 +138,9 @@ const useApp = () => {
       try {
         // Access the user's camera
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
+          video: isMobile
+            ? { facingMode: isFrontCamera ? "user" : "environment" }
+            : { facingMode: "environment" },
           audio: false,
         });
 
@@ -190,6 +195,8 @@ const useApp = () => {
     base64Frames,
     autoMode,
     setAutoMode,
+    setIsFrontCamera,
+    isFrontCamera,
   };
 };
 
