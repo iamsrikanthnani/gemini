@@ -7,72 +7,26 @@
  *
  * Dependencies:
  * - "@/hooks/useApp": Custom hook for handling camera initialization and speech recognition.
+ * - "@/hooks/useResponsive": Custom hook for handling mobile responsive.
  *
  * @returns {JSX.Element} - The JSX representation of the App component.
  */
-import { Flex, Link, Switch, Text } from "@radix-ui/themes";
+import { Flex, Switch, Text } from "@radix-ui/themes";
 import useApp from "@/hooks/useApp";
-import {
-  EnvelopeOpenIcon,
-  GitHubLogoIcon,
-  LinkedInLogoIcon,
-  TwitterLogoIcon,
-} from "@radix-ui/react-icons";
+import useResponsive from "@/hooks/useResponsive";
+import Links from "./components/Links";
 
 const App = () => {
   // Destructure values from the custom hook
   const { isLoading, videoRef, response, listening, autoMode, setAutoMode } =
     useApp();
-  console.log(autoMode, "autoMode");
+  // mobile responsive
+  const { isMobile } = useResponsive();
+
   return (
     <div className="flex flex-col sm:flex-row h-screen bg-black p-8">
-      <Flex
-        position={"absolute"}
-        gap={"2"}
-        align={"center"}
-        className="z-50 right-16"
-      >
-        <Link
-          href={"https://srikanthnani.com/"}
-          target="_blank"
-          rel="me noopener noreferrer"
-        >
-          <Text size={"4"} className="text-white text-center">
-            srikanthnani.com/
-          </Text>
-        </Link>
-
-        <Link
-          href={"https://github.com/iamsrikanthnani/gemini"}
-          target="_blank"
-          rel="me noopener noreferrer"
-        >
-          <GitHubLogoIcon color="#fff" width={18} height={18} />
-        </Link>
-        <Link
-          href={"https://linkedin.com/in/iamsrikanthnani/"}
-          target="_blank"
-          rel="me noopener noreferrer"
-        >
-          <LinkedInLogoIcon color="#fff" width={18} height={18} />
-        </Link>
-        <Link
-          href={"https://twitter.com/truly_sn"}
-          target="_blank"
-          rel="me noopener noreferrer"
-        >
-          <TwitterLogoIcon color="#fff" width={18} height={18} />
-        </Link>
-
-        <Link
-          href={"mailto:srikanthnani1202@gmail.com"}
-          target="_blank"
-          className="cursor-pointer"
-          rel="me noopener noreferrer"
-        >
-          <EnvelopeOpenIcon color="#fff" width={18} height={18} />
-        </Link>
-      </Flex>
+      {/* links */}
+      <Links />
       {/* Camera layout */}
       <div className="lg:w-2/3 lg:h-full md:w-2/3 md:h-full sm:w-full h-4/6 sm:mr-2 mb-2 sm:mb-0">
         <div
@@ -93,9 +47,13 @@ const App = () => {
 
       {/* Gemini response layout */}
       <div className="lg:w-1/3 lg:h-full md:w-1/3 md:h-full sm:w-full h-2/6">
-        <div className="bg-black p-4 ml-6 h-full w-full justify-center flex items-center">
+        <div
+          className={`bg-black p-4 ${
+            isMobile ? "ml-0" : "ml-6"
+          } h-full w-full justify-center flex items-center`}
+        >
           {/* Display Gemini response or loading/listening message */}
-          <Flex direction={"column"} gap={"5"}>
+          <Flex direction={"column"} gap={"5"} mb={isMobile ? "9" : "1"}>
             <Text
               className="text-white text-center"
               size={"6"}
@@ -117,7 +75,7 @@ const App = () => {
             direction={"column"}
             className="absolute bottom-0 py-4 text-center"
           >
-            <Flex gap="2">
+            <Flex gap="2" mb={isMobile ? "3" : "1"}>
               <Switch
                 checked={autoMode}
                 onCheckedChange={() => setAutoMode(!autoMode)}
